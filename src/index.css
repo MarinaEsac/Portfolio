@@ -9,4 +9,63 @@
   /* background-size: contain;
   background-position: center; */
 }
-  
+html {
+  scroll-behavior: smooth;
+}
+.linear-Gredint {
+  background: linear-gradient(107deg , rgba(255, 255, 255, 0) 50%, black 50%),url('../public/assets/dots.jpg');
+}
+.label {
+@apply block text-zinc-200 text-sm font-normal mb-2
+}
+.text-field {
+  @apply block outline-none w-full px-8 py-3 text-sm bg-zinc-800
+  rounded-xl ring-1 ring-inset ring-transparent transition-shadow
+   hover:ring-zinc-50/5 focus:ring-sky-400 focus:ring-2
+}
+.text-field::placeholder {
+  @apply text-zinc-400
+}
+.reveal-up  {
+  @apply translate-y-10 opacity-0 transition-all duration-500 ease-in-out
+
+}
+.menu-btn{
+  @apply w-10 h-10 grid place-items-center rounded-xl bg-zinc-50/10 text-zinc-200 ring-inset
+  ring-1 ring-zinc-50/[0.02] backdrop-blur-2xl hover:bg-zinc-50/15
+  active:scale-95
+}
+
+.navbar{
+  @apply absolute top-full mt-2 right-0 min-w-40 p-2 bg-stone-950
+  rounded-2xl ring-inset ring-1 ring-zinc-50/5 scale-90 isolate blur-sm
+  opacity-0 invisible transition-all duration-500 ease-in-out 
+  md:static md:flex md:items-center md:mt-0 md:opacity-100 md:blur-0
+  md:visible md:scale-100 backdrop-blur-2xl
+}
+.parent{
+  @apply md:flex md:justify-center md:w-full;
+
+}
+.navbar.active{
+  @apply scale-100 opacity-100 visible blur-0
+} 
+.nav-link{
+  @apply grid items-center h-9 px-4 text-sm font-medium
+  tracking-wide text-zinc-50/50 hover:text-zinc-50 transition-colors
+}
+.nav-link.active{
+  @apply text-zinc-900 duration-500
+}
+.navbar .active-box{
+@apply absolute bg-zinc-50 rounded-lg
+-z-10 duration-500
+}
+/* .btn {
+  @apply max-w-max h-9 flex items-center gap-2 px-4 rounded-2xl font-medium
+  text-sm ring-1 ring-zinc-50/5 ring-inset
+}
+.btn-primary {
+  @apply bg-zinc-50 text-zinc-900 active:bg-zinc-50/80
+} */
+

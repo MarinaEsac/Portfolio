@@ -1,50 +1,71 @@
 import React from "react";
-import bootstrap from "../assets/bootstrap.png";
-import css from "../assets/css.png";
-import html from "../assets/html.png";
-import jquery from "../assets/jquery.png";
-import js from "../assets/js.png";
-import mui from "../assets/mui.png";
-import tailwind from "../assets/tailwind.png";
-import typescript from "../assets/typescript.png";
+import html from "../assets/html5.svg";
+import css from "../assets/css.svg";
+import bootstrap from "../assets/bootstrap.svg";
+import tailwind from "../assets/tailwind-css.svg";
+import js from "../assets/javascript.svg";
+import ts from "../assets/typescript.svg";
+import react from "../assets/react.svg";
+import redux from "../assets/redux.svg";
+import github from "../assets/github.svg";
+import mui from "../assets/mui.svg";
+import jquery from "../assets/jquery.svg";
+import next from "../assets/nextjs.svg";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(useGSAP);
+
+const skills = [
+  { img: html, label: "HTML5" },
+  { img: css, label: "CSS3" },
+  { img: bootstrap, label: "BOOTSTRAP" },
+  { img: tailwind, label: "TAILWIND" },
+  { img: mui, label: "MATERIAL UI" },
+  { img: js, label: "JAVASCRIPT" },
+  { img: jquery, label: "JQUERY" },
+  { img: ts, label: "TYPESCRIPT" },
+  { img: react, label: "REACT.JS" },
+  { img: redux, label: "REDUX TOOLKIT" },
+  { img: next, label: "NEXT.JS" },
+  { img: github, label: "GIT/GITHUB" },
+];
+
 const Skills = () => {
+  const loopedSkills = [...skills, ...skills]; 
+
+  useGSAP(() => {
+    gsap.to(".slider-track", {
+      xPercent: -50,
+      ease: "linear",
+      duration: 20,
+      repeat: -1,
+    });
+  }, []);
+
   return (
-    <div className="py-10 bg-image  mx-auto">
-      <h2 className="text-gray-700 text-2xl md:text-4xl font-bold mb-11 text-center">
+    <div id="skills" className="py-10 bg-image mx-auto overflow-hidden">
+      <h2 className="text-gray-900 text-2xl md:text-4xl font-bold mb-11 text-center">
         My Skills
       </h2>
-      <div className="bg-white max-w-screen-lg text-gray-400 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 justify-center items-center">
-        <div className="flex flex-col items-center m-4 sm:my-0 shadow-md border border-gray-200 rounded-lg p-9 text-center hover:p-6 transition-all duration-300"> 
-          <img src={html} alt="" width={100} height={100} />
-          <p className="mt-2">HTML5</p>
-        </div>
-        <div className="flex flex-col items-center m-4 sm:my-0 shadow-md border border-gray-200 rounded-lg p-9 text-center hover:p-6 transition-all duration-300"> 
-          <img src={css} alt="" width={100} height={100} />
-          <p className="mt-2">CSS3</p>
-        </div>
-        <div className="flex flex-col items-center m-4 sm:my-0 shadow-md border border-gray-200 rounded-lg p-9 text-center hover:p-6 transition-all duration-300"> 
-          <img src={bootstrap} alt="" width={100} height={100} />
-          <p className="mt-2">BOOTSTRAP</p>
-        </div>
-        <div className="flex flex-col items-center m-4 sm:my-0 shadow-md border border-gray-200 rounded-lg p-9 text-center hover:p-6 transition-all duration-300"> 
-          <img src={tailwind} alt="" width={100} height={100} />
-          <p className="mt-2">TAILWIND</p>
-        </div>
-        <div className="flex flex-col items-center m-4 sm:my-0 shadow-md border border-gray-200 rounded-lg p-9 text-center hover:p-6 transition-all duration-300"> 
-          <img src={mui} alt="" width={100} height={100} />
-          <p className="mt-2">MATERIAL UI</p>
-        </div>
-        <div className="flex flex-col items-center m-4 sm:my-0 shadow-md border border-gray-200 rounded-lg p-9 text-center hover:p-6 transition-all duration-300"> 
-          <img src={js} alt="" width={100} height={100} />
-          <p className="mt-2">JAVASCRIPT</p>
-        </div>
-        <div className="flex flex-col items-center m-4 sm:my-0 shadow-md border border-gray-200 rounded-lg p-9 text-center hover:p-6 transition-all duration-300"> 
-          <img src={jquery} alt="" width={100} height={100} />
-          <p className="mt-2">JQUERY</p>
-        </div>
-        <div className="flex flex-col items-center m-4 sm:my-0 shadow-md border border-gray-200 rounded-lg p-9 text-center hover:p-6 transition-all duration-300"> 
-          <img src={typescript} alt="" width={100} height={100} />
-          <p className="mt-2">TYPESCRIPT</p>
+
+      <div className="relative w-full overflow-hidden">
+        <div className="flex slider-track w-[200%] gap-4">
+          {loopedSkills.map((skill, index) => (
+            <div
+              key={index}
+              className="min-w-[150px] bg-white text-gray-400 shadow-md border border-gray-200 rounded-lg p-5 cursor-pointer text-center group transition-all duration-300 hover:shadow-xl hover:scale-105"
+            >
+              <img
+                src={skill.img}
+                alt={skill.label}
+                width={100}
+                height={100}
+                className="mx-auto group-hover:scale-105 transition-all duration-300"
+              />
+              <p className="mt-2 text-sm">{skill.label}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

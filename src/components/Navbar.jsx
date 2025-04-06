@@ -1,35 +1,57 @@
-import React , {useState} from 'react'
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import React from "react";
+import { useRef , useEffect} from "react";
+import PropTypes from "prop-types";
 
-const Navbar = () => {
-    const [nav , setNav] = useState(false)
-    const handleNav = () => {
-        setNav(!nav)
-    }
+const Navbar = ({ navOpen }) => {
+  const lastActiveLink = useRef();
+  const activeBox = useRef();
+
+  const initActiveBox = () => {
+    activeBox.current.style.top = lastActiveLink.current.offsetTop + "px";
+    activeBox.current.style.left = lastActiveLink.current.offsetLeft + "px";
+    activeBox.current.style.width = lastActiveLink.current.offsetWidth + "px";
+    activeBox.current.style.height = lastActiveLink.current.offsetHeight + "px";
+   }
+    useEffect(initActiveBox , []) 
+    window.addEventListener("resize", initActiveBox);
+
+    const activeCurrentLink = (e) => {
+      lastActiveLink.current.classList.remove("active");
+      e.target.classList.add("active");
+      lastActiveLink.current = e.target;
+  
+      activeBox.current.style.top = e.target.offsetTop + "px";
+     activeBox.current.style.left = e.target.offsetLeft + "px";
+     activeBox.current.style.width = e.target.offsetWidth + "px";
+     activeBox.current.style.height = e.target.offsetHeight + "px";
+     }
+  const navItems = [
+    {
+      label: "Home",
+      link: "#home",
+      className: "nav-link active",
+      ref: lastActiveLink,
+    },
+    { label: "About", link: "#about", className: "nav-link" },
+    { label: "Work", link: "#work", className: "nav-link" },
+    { label: "Skills", link: "#skills", className: "nav-link" },
+    { label: "Contact", link: "#contact", className: "nav-link md:hidden" },
+  ];
+  
+
+   
   return (
-      <div className='bg-black text-gray-400 h-[100px] mx-auto flex justify-between items-center'>
-        <h1 className='text-3xl font-bold primary-color ml-4'>Marina Hany</h1>
-       <ul className='hidden md:flex'>
-        <li className='p-5'><a href='#about'>About</a></li>
-        <li className='p-5'><a href='#work'>Work</a></li>
-        <li className='p-5'><a href='#skills'>Skills</a></li>
-        <li className='p-5'><a href='#contact'>Contact</a></li>
-       </ul>
-        <div onClick={handleNav} className='block md:hidden mr-6'>
-            {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
-        </div>
-        <div className={nav ? 'fixed h-full left-0 top-0 w-[60%] bg-[#202121] ease-in-out duration-500' : 'fixed left-[100%]'}>
-          <h1 className='text-3xl primary-color m-4'>Marina Hany</h1>
-          <ul className='p-8 text-2xl'>
-            {/* <li className='p-2'><a href='#home'>Home</a></li> */}
-            <li className='p-2'><a href='#about'>About</a></li>
-            <li className='p-2'><a href='#work'>Work</a></li>
-            <li className='p-2'><a href='#skills'>Skills</a></li>
-            <li className='p-2'><a href='#contact'>Contact</a></li>
-          </ul>
-        </div>
-      </div>
-  )
-}
-
-export default Navbar
+    <nav className={`navbar ${navOpen ? "active" : ""}`}>
+      {navItems.map(({ label, link, className, ref }, key) => (
+        <a href={link} className={className} key={key} ref={ref} onClick={activeCurrentLink}>
+          {label}
+        </a>
+      ))}
+      <div className="active-box" ref={activeBox}></div>
+    </nav>
+  );
+};
+Navbar.propTypes = {
+  navOpen: PropTypes.bool.isRequired,
+};
+export default Navbar;
